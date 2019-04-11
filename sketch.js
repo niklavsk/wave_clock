@@ -1,13 +1,19 @@
 let clock;
 let clock2;
-
+let clock3;
+let clock4;
+let clock5;
+let clock6;
+let clock7;
+let clock8;
+let clock9;
+let strokeCol1;
 let x1;
 let y1;
 let angle1 = 0;
 let angle2 = 0;
-let strokeCol1 = 50;
-let strokeCol2 = 100;
-let strokeCol3 = 150;
+
+
 let strokeChange = -1;
 
 
@@ -22,11 +28,30 @@ function draw(){
 
 x1 = width/2;
 y1 = height/2;
+strokeCol1 = 50;
 
-clock = new Clocks(x1, y1);
-clock2 = new Clocks(100,100);
+
+clock = new Clocks(100, 100, 80, strokeCol1, 50, 50);
+clock2 = new Clocks(300, 100, random(70,80), strokeCol1, 70, 50);
+clock3 = new Clocks(500, 100, 80, random(150,200), random(150,200), random(150,200));
+
+clock4 = new Clocks(100, 300, 80, strokeCol1, 50, 50);
+clock5 = new Clocks(300, 300, 80, strokeCol1, 50, 50);
+clock6 = new Clocks(500, 300, 80, strokeCol1, 50, 50);
+
+clock7 = new Clocks(100, 500, 80, strokeCol1, 50, 50);
+clock8 = new Clocks(300, 500, 80, strokeCol1, 50, 50);
+clock9 = new Clocks(500, 500, 80, strokeCol1, 50, 50);
+
 clock.display();
 clock2.display();
+clock3.display();
+clock4.display();
+clock5.display();
+clock6.display();
+clock7.display();
+clock8.display();
+clock9.display();
 
 }
 
@@ -34,48 +59,45 @@ clock2.display();
 
 class Clocks {
 
-constructor(x,y){
+constructor(x, y, scalar, col1, col2, col3){
 this.x = x;
 this.y = y;
+this.scalar = scalar;
+this.col1 = col1;
+this.col2 = col2;
+this.col3 = col3;
 }
 
 display(){
 
+let x2 = this.x+this.scalar*cos(angle1);
+let y2 = this.y+this.scalar*sin(angle2);
 
-let scalar = random(200);
+this.col1 += strokeChange;
+this.col2 += strokeChange;
+this.col3 += strokeChange;
 
-
-let x2 = width/2+scalar*cos(angle1);
-let y2 = height/2+scalar*sin(angle2);
-
-strokeCol1 += strokeChange;
-strokeCol2 += strokeChange;
-strokeCol3 += strokeChange;
-
-if (strokeCol1>254){
+if (this.col1>254){
 strokeChange = -1;
 }
-if (strokeCol1<0){
+if (this.col1<0){
 strokeChange = 1;
 }
 
-if (strokeCol2>254){
-strokeChange = -1;
+
+
+if (this.scalar>100){
+this.scalar += -1;
 }
-if (strokeCol2<0){
-strokeChange = 1;
+if (this.scalar<100){
+this.scalar += -1;
 }
 
-if (strokeCol3>254){
-strokeChange = -1;
-}
-if (strokeCol3<0){
-strokeChange = 1;
-}
 
 
 strokeWeight(1);
-stroke(strokeCol1,strokeCol2,strokeCol3);
+stroke(this.col1,this.col2,this.col3);
+
 line(this.x, this.y,x2,y2);
 
 angle1++;
